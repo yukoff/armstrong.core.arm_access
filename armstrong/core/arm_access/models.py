@@ -47,7 +47,7 @@ class AccessObject(models.Model):
         return self.assignments.all().delete()
 
     def __unicode__(self):
-        return u'AccessObject - %i' % self.id
+        return 'AccessObject - %i' % self.id
 
     def is_protected(self):
         for assignment in self.current_assignments:
@@ -71,7 +71,7 @@ class Assignment(models.Model):
             default=datetime.datetime.max)
 
     def __unicode__(self):
-        return u"%s - %s" % (self.level, self.access_object)
+        return "%s - %s" % (self.level, self.access_object)
 
 
 class AccessMembershipQuerySet(QuerySet):

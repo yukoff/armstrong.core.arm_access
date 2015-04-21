@@ -36,34 +36,34 @@ def teardown_scenario(scenario):
     Assignment.objects.all().delete()
 
 
-@step(u'A piece of content exists')
+@step('A piece of content exists')
 def a_piece_of_content_exists(step):
     world.content = Content.objects.create(name="The content")
     world.content.access = []
 
 
-@step(u'it has no access defined')
+@step('it has no access defined')
 def it_has_no_access_defined(step):
     world.content.access = None
 
 
-@step(u'a user has no access levels defined')
+@step('a user has no access levels defined')
 def a_user_has_no_access_levels_defined(step):
     pass
 
 
-@step(u'the default has_access backend is configured')
+@step('the default has_access backend is configured')
 def the_default_has_access_backend_is_configured(step):
     world.backend = SubscriptionPaywall()
 
 
-@step(u'the access check is performed')
+@step('the access check is performed')
 def the_access_check_is_performed(step):
     request = fudge.Fake().has_attr(user=world.user)
     world.result = SubscriptionChecker.has_permission(request, world.content)
 
 
-@step(u'access should be (.*)')
+@step('access should be (.*)')
 def access_should_be_denied(step, allowed_or_denied):
     if allowed_or_denied == 'allowed':
         assert world.result == True
@@ -71,7 +71,7 @@ def access_should_be_denied(step, allowed_or_denied):
         assert world.result == False
 
 
-@step(u'it has a (.*) access node with a date in the (.*)')
+@step('it has a (.*) access node with a date in the (.*)')
 def it_has_an_access_node_with_a_date(step, node_type, date):
     access_level = Level.objects.get(name=node_type)
     if date == 'future':
@@ -81,7 +81,7 @@ def it_has_an_access_node_with_a_date(step, node_type, date):
     world.content.access.create(level=access_level, start_date=access_date)
 
 
-@step(u'a user has the premium access level')
+@step('a user has the premium access level')
 def a_user_has_the_premium_access_level(step):
     kwargs = {}
     kwargs['active'] = True

@@ -21,9 +21,9 @@ class AccessWidgetTestCase(ArmAccessTestCase):
     def testParseForEmptyAssignments(self):
         name = '%i' % random.randint(1000, 10000)
         data = {
-                 name + '-assignments-TOTAL_FORMS': u'0',
-                 name + '-assignments-INITIAL_FORMS': u'0',
-                 name + '-assignments-MAX_NUM_FORMS': u'',
+                 name + '-assignments-TOTAL_FORMS': '0',
+                 name + '-assignments-INITIAL_FORMS': '0',
+                 name + '-assignments-MAX_NUM_FORMS': '',
                 }
         value = self.widget.value_from_datadict(data, [], name)
         self.assertEqual(0, len(value))
@@ -34,27 +34,27 @@ class AccessWidgetTestCase(ArmAccessTestCase):
         bar = Level.objects.create(name='bar')
         baz = Level.objects.create(name='baz')
         data = {
-                 name + '-assignments-TOTAL_FORMS': u'3',
-                 name + '-assignments-INITIAL_FORMS': u'0',
-                 name + '-assignments-MAX_NUM_FORMS': u'',
-                 name + '-assignments-0-id': u'',
-                 name + '-assignments-0-level': u'%i' % foo.id,
-                 name + '-assignments-0-start_date_0': u'2011-08-12',
-                 name + '-assignments-0-start_date_1': u'12:50:56',
-                 name + '-assignments-0-end_date_1': u'23:59:59',
-                 name + '-assignments-0-end_date_0': u'9999-12-31',
-                 name + '-assignments-1-id': u'',
-                 name + '-assignments-1-level': u'%i' % baz.id,
-                 name + '-assignments-1-start_date_0': u'2011-08-12',
-                 name + '-assignments-1-start_date_1': u'13:13:14',
-                 name + '-assignments-1-end_date_0': u'',
-                 name + '-assignments-1-end_date_1': u'',
-                 name + '-assignments-2-id': u'',
-                 name + '-assignments-2-level': u'%i' % bar.id,
-                 name + '-assignments-2-start_date_0': u'2011-08-12',
-                 name + '-assignments-2-start_date_1': u'13:13:14',
-                 name + '-assignments-2-end_date_0': u'',
-                 name + '-assignments-2-end_date_1': u'',
+                 name + '-assignments-TOTAL_FORMS': '3',
+                 name + '-assignments-INITIAL_FORMS': '0',
+                 name + '-assignments-MAX_NUM_FORMS': '',
+                 name + '-assignments-0-id': '',
+                 name + '-assignments-0-level': '%i' % foo.id,
+                 name + '-assignments-0-start_date_0': '2011-08-12',
+                 name + '-assignments-0-start_date_1': '12:50:56',
+                 name + '-assignments-0-end_date_1': '23:59:59',
+                 name + '-assignments-0-end_date_0': '9999-12-31',
+                 name + '-assignments-1-id': '',
+                 name + '-assignments-1-level': '%i' % baz.id,
+                 name + '-assignments-1-start_date_0': '2011-08-12',
+                 name + '-assignments-1-start_date_1': '13:13:14',
+                 name + '-assignments-1-end_date_0': '',
+                 name + '-assignments-1-end_date_1': '',
+                 name + '-assignments-2-id': '',
+                 name + '-assignments-2-level': '%i' % bar.id,
+                 name + '-assignments-2-start_date_0': '2011-08-12',
+                 name + '-assignments-2-start_date_1': '13:13:14',
+                 name + '-assignments-2-end_date_0': '',
+                 name + '-assignments-2-end_date_1': '',
              }
         value = self.widget.value_from_datadict(data, [], name)
         self.assertEqual(3, len(value))
@@ -82,7 +82,7 @@ class AccessWidgetTestCase(ArmAccessTestCase):
         obj = AccessObject.objects.create()
         obj.create(level=foo, start_date=datetime.datetime(2011, 8, 12, 12, 50, 56))
         obj.create(level=bar, start_date=datetime.datetime.now())
-        context = self.widget.get_context(name, long(obj.id))
+        context = self.widget.get_context(name, int(obj.id))
         self.assertFalse(context['hidden'])
         self.assertEqual(name, context['name'])
         self.assertFalse(context['is_public'])
@@ -121,27 +121,27 @@ class AccessWidgetTestCase(ArmAccessTestCase):
         bar = Level.objects.create(name='bar')
         baz = Level.objects.create(name='baz')
         data = {
-                 name + '-assignments-TOTAL_FORMS': u'3',
-                 name + '-assignments-INITIAL_FORMS': u'0',
-                 name + '-assignments-MAX_NUM_FORMS': u'',
-                 name + '-assignments-0-id': u'',
-                 name + '-assignments-0-level': u'%i' % foo.id,
-                 name + '-assignments-0-start_date_0': u'2011-08-12',
-                 name + '-assignments-0-start_date_1': u'12:50:56',
-                 name + '-assignments-0-end_date_1': u'23:59:59',
-                 name + '-assignments-0-end_date_0': u'9999-12-31',
-                 name + '-assignments-1-id': u'',
-                 name + '-assignments-1-level': u'%i' % baz.id,
-                 name + '-assignments-1-start_date_0': u'2011-08-12',
-                 name + '-assignments-1-start_date_1': u'13:13:14',
-                 name + '-assignments-1-end_date_0': u'',
-                 name + '-assignments-1-end_date_1': u'',
-                 name + '-assignments-2-id': u'',
-                 name + '-assignments-2-level': u'%i' % bar.id,
-                 name + '-assignments-2-start_date_0': u'',
-                 name + '-assignments-2-start_date_1': u'',
-                 name + '-assignments-2-end_date_0': u'',
-                 name + '-assignments-2-end_date_1': u'',
+                 name + '-assignments-TOTAL_FORMS': '3',
+                 name + '-assignments-INITIAL_FORMS': '0',
+                 name + '-assignments-MAX_NUM_FORMS': '',
+                 name + '-assignments-0-id': '',
+                 name + '-assignments-0-level': '%i' % foo.id,
+                 name + '-assignments-0-start_date_0': '2011-08-12',
+                 name + '-assignments-0-start_date_1': '12:50:56',
+                 name + '-assignments-0-end_date_1': '23:59:59',
+                 name + '-assignments-0-end_date_0': '9999-12-31',
+                 name + '-assignments-1-id': '',
+                 name + '-assignments-1-level': '%i' % baz.id,
+                 name + '-assignments-1-start_date_0': '2011-08-12',
+                 name + '-assignments-1-start_date_1': '13:13:14',
+                 name + '-assignments-1-end_date_0': '',
+                 name + '-assignments-1-end_date_1': '',
+                 name + '-assignments-2-id': '',
+                 name + '-assignments-2-level': '%i' % bar.id,
+                 name + '-assignments-2-start_date_0': '',
+                 name + '-assignments-2-start_date_1': '',
+                 name + '-assignments-2-end_date_0': '',
+                 name + '-assignments-2-end_date_1': '',
              }
         value = self.widget.value_from_datadict(data, [], name)
         context = self.widget.get_context(name, value)

@@ -1,5 +1,5 @@
 import datetime
-import StringIO
+import io
 import sys
 import shutil
 
@@ -25,50 +25,50 @@ class AccessFieldTestCase(ArmAccessTestCase):
 
     def testNoInteractionMeansNullAccessObject(self):
         obj = ArmAccessSupportContent.objects.create()
-        self.assertEquals(0, AccessObject.objects.count())
-        self.assertEquals(None, obj.access)
+        self.assertEqual(0, AccessObject.objects.count())
+        self.assertEqual(None, obj.access)
 
     def testSettingAccessToNoneExplicitly(self):
         obj = ArmAccessSupportContent.objects.create()
         obj.access = None
-        self.assertEquals(0, AccessObject.objects.count())
-        self.assertEquals(None, obj.access)
+        self.assertEqual(0, AccessObject.objects.count())
+        self.assertEqual(None, obj.access)
 
     def testSettingAccessToEmptyList(self):
         obj = ArmAccessSupportContent.objects.create()
         obj.access = []
-        self.assertEquals(1, AccessObject.objects.count())
-        self.assertEquals(0, Assignment.objects.count())
-        self.assertNotEquals(None, obj.access)
-        self.assertEquals([], list(obj.access.current_assignments))
+        self.assertEqual(1, AccessObject.objects.count())
+        self.assertEqual(0, Assignment.objects.count())
+        self.assertNotEqual(None, obj.access)
+        self.assertEqual([], list(obj.access.current_assignments))
 
     def testSettingAccessToSingleAssignment(self):
         obj = ArmAccessSupportContent.objects.create()
         assign = Assignment(level=self.foo_level, start_date=self.past)
         obj.access = assign
-        self.assertEquals(1, AccessObject.objects.count())
-        self.assertEquals(1, Assignment.objects.count())
-        self.assertNotEquals(None, obj.access)
-        self.assertEquals([assign], list(obj.access.current_assignments))
+        self.assertEqual(1, AccessObject.objects.count())
+        self.assertEqual(1, Assignment.objects.count())
+        self.assertNotEqual(None, obj.access)
+        self.assertEqual([assign], list(obj.access.current_assignments))
 
     def testSettingAccessToSingleAssignmentInArray(self):
         obj = ArmAccessSupportContent.objects.create()
         assign = Assignment(level=self.foo_level, start_date=self.past)
         obj.access = [assign]
-        self.assertEquals(1, AccessObject.objects.count())
-        self.assertEquals(1, Assignment.objects.count())
-        self.assertNotEquals(None, obj.access)
-        self.assertEquals([assign], list(obj.access.current_assignments))
+        self.assertEqual(1, AccessObject.objects.count())
+        self.assertEqual(1, Assignment.objects.count())
+        self.assertNotEqual(None, obj.access)
+        self.assertEqual([assign], list(obj.access.current_assignments))
 
     def testSettingAccessToMultipleAssignmentInArray(self):
         obj = ArmAccessSupportContent.objects.create()
         assign_foo = Assignment(level=self.foo_level, start_date=self.past)
         assign_bar = Assignment(level=self.bar_level, start_date=self.past)
         obj.access = [assign_foo, assign_bar]
-        self.assertEquals(1, AccessObject.objects.count())
-        self.assertEquals(2, Assignment.objects.count())
-        self.assertNotEquals(None, obj.access)
-        self.assertEquals([assign_foo, assign_bar],
+        self.assertEqual(1, AccessObject.objects.count())
+        self.assertEqual(2, Assignment.objects.count())
+        self.assertNotEqual(None, obj.access)
+        self.assertEqual([assign_foo, assign_bar],
                 list(obj.access.current_assignments))
 
     def testSettingAccessToNull(self):
@@ -77,13 +77,13 @@ class AccessFieldTestCase(ArmAccessTestCase):
         assign_bar = Assignment(level=self.bar_level, start_date=self.past)
         obj.access = [assign_foo, assign_bar]
         obj.access = None
-        self.assertEquals(0, AccessObject.objects.count())
-        self.assertEquals(0, Assignment.objects.count())
-        self.assertEquals(None, obj.access)
+        self.assertEqual(0, AccessObject.objects.count())
+        self.assertEqual(0, Assignment.objects.count())
+        self.assertEqual(None, obj.access)
 
 class AccessFieldSouthTestCase(ArmAccessTestCase):
     def testGenerateSouthMigration(self):
-        tmp = StringIO.StringIO()
+        tmp = io.StringIO()
         sys.stdout = tmp
         sys.stderr = tmp
 
